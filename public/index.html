@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="./javascripts/controller.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css" rel='stylesheet'>
+</head>
+
+<body ng-app="table-app" ng-controller="table-ctrl" ng-init="load()">
+    <button ng-click="load();">reload</button>
+    <select name="table-name" id="" ng-model="table" ng-init="table = 'experts'">
+        <option value="experts">Experts</option>
+        <option value="results">Results</option>
+    </select>
+    <select ng-show="table === 'results'" name="result-content" id="" ng-model="resultSwitch" ng-init="resultSwitch = 'typeof'">
+        <option value="typeof">Type Of Value</option>
+        <option value="content">Content</option>
+    </select>
+    <div id="message">
+        <span class="value" ng-bind="selected"></span>
+    </div>
+    <div ng-show="experts.length && table === 'experts'">
+        <div>
+            <span ng-repeat="field in fieldNames" ng-init="expertCheckBox[field] = true">
+            <input type="checkbox" ng-model="expertCheckBox[field]">
+            <span ng-bind="field"></span>
+            </span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th ng-repeat="head in fieldNames" ng-bind="head" ng-show="expertCheckBox[head]">
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="expert in experts">
+                <td ng-bind="expert._id"></td>
+                <td ng-click="select($event, currentKey)" ng-bind="expert.expert_name"></td>
+                <td ng-click="select($event, currentKey)" ng-repeat="fieldName in fieldNames" ng-init="currentKey = expert.key_status[fieldName];"
+                    ng-switch="currentKey" ng-show="expertCheckBox[fieldName]">
+                    <div ng-bind="currentKey" ng-switch-when="NULL" class="field-soon upper-bold"></div>
+                    <div ng-bind="currentKey" ng-switch-when="scrapy" class="field-ready upper-bold"></div>
+                    <div ng-bind="currentKey" ng-switch-when="ares" class="field-ready upper-bold"></div>
+                    <div ng-bind="currentKey" ng-switch-when="undefined" class="field-unknown upper-bold"></div>
+                    <div ng-bind="currentKey" ng-switch-default class="field-note"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div ng-show="results.length && table === 'results'">
+        <div>
+            <span ng-repeat="field in resultsFieldNames" ng-init="resultCheckBox[field] = true">
+            <input type="checkbox" ng-model="resultCheckBox[field]">
+            <span ng-bind="field"></span>
+            </span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th ng-repeat="head in resultsFieldNames" ng-show="resultCheckBox[head]" ng-bind="head">
+                    </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="result in results" oncontextmenu="return false;">
+                <td ng-click="select($event, currentKey || getField(result._expert, resultsFieldName), result);$event.stopPropagation();" ng-repeat="resultsFieldName in resultsFieldNames" 
+                ng-show="resultCheckBox[resultsFieldName]"
+                ng-init="currentKey = result[resultsFieldName];">
+                    <div ng-init="dataModel = (resultSwitch == 'content' ? (currentKey + '') : safeTypeOf(currentKey))" ng-class="{'no-result': !(resultSwitch == 'content' ? (currentKey + '') : safeTypeOf(currentKey))}">
+                        <div ng-bind="(resultSwitch == 'content' ? (currentKey + '') : safeTypeOf(currentKey)) || getField(result._expert, resultsFieldName)"
+                            class="field-typeof"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

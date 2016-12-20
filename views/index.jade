@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+  script(src="/javascripts/main.js")
+  link(href="https://fonts.googleapis.com/css?family=Open+Sans", rel="stylesheet")
+  div#message
+      span.value  
+  table
+    thead
+      tr
+        th
+        each fieldName in fieldNames
+          th=fieldName
+    each expert, i in experts
+      tr
+        td=i
+        td=expert.expert_name
+        each fieldName in fieldNames
+          if expert.key_status[fieldName] == "NULL"
+            td(class="field-null upper-bold")=expert.key_status[fieldName]
+          else if !expert.key_status[fieldName]
+            td(class="field-unknown upper-bold")=expert.key_status[fieldName]
+          else if expert.key_status[fieldName] == "SOON"
+              td(class="field-soon upper-bold")=expert.key_status[fieldName]
+          else if expert.key_status[fieldName] == "scrapy" || expert.key_status[fieldName] == "ares"
+            td(class="field-ready upper-bold")=expert.key_status[fieldName]
+          else
+            td(class="field-note")=expert.key_status[fieldName]

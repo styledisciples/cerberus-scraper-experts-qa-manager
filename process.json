@@ -1,0 +1,18 @@
+{
+    "apps": [
+        {
+            "name": "expert-manager",
+            "script": "./bin/www",
+            "watch": false,
+            "env_production": {
+                "NODE_ENV": "production"
+            },
+            "env_test": {
+                "NODE_ENV": "test"
+            },
+            "env—development": {
+                "NODE_ENV": "development"
+            }
+        }
+    ]
+}

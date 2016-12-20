@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 5px;
+  font: 14px "Open Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+
+/*Coloring fields*/
+
+.field-null {
+  background-color: red;
+  color: #fff;
+}
+
+.field-soon {
+  background-color: yellow;
+  color: #000;
+}
+
+.field-note {
+  background-color: blue;
+  color: #fff;
+  overflow: hidden;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.field-ready {
+  background-color: green;
+  color: #fff;
+}
+
+.field-typeof {
+  background-color: gray;
+  color: #fff;
+  overflow: hidden;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.field-unknown {
+  background-color: #ccc;
+  color: #000;
+}
+
+.no-result div {
+  background-color: green;
+}
+
+
+/*Coloring fields*/
+
+.upper-bold {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+tr:hover, tr:hover td {
+  box-shadow: 0px 1px 1px steelblue, 0px -1px 1px steelblue;
+}
+
+th {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 2px;
+}
+
+th, td {
+  text-align: center;
+  max-width: 10px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  overflow: hidden;
+}
+
+td {
+  border: 1px solid transparent;
+  max-width: 35px;
+}
+
+#message {
+  margin: 3px auto;
+  text-align: center;
+}
+
+#message .value {
+  border-radius: 3px;
+  padding: 2px;
+  font-weight: bold;
+}
